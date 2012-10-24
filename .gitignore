@@ -1,2 +1,19 @@
-fuel/app/logs/*/*/*
-fuel/app/cache/*/*
+.DS_Store
+*.AppleDesktop*
+*.AppleDB*
+*.AppleDouble*
+.AppleDouble/*
+.AppleDB/*
+.AppleDouble
+.AppleDB
+.AppleDesktop
+.AppleDesktop/*
+Network Trash
+*~
+*.pyc
+*.log
+*.vis
+*.swp
+.project
+.vagrant
+.sass-cache/
