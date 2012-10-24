@@ -1,6 +1,5 @@
 <?php
-
-namespace Fuel\Util;
+namespace Benchmark;
 
 abstract class Benchmark {
     private static $index = array();
