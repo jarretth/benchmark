@@ -1,0 +1,14 @@
+{
+    "name": "jarretth/Benchmark",
+    "type": "library",
+    "description": "Benchmark",
+    "keywords": ["utilitites"],
+    "homepage": "",
+    "license": "MIT",
+    "autoload": {
+        "psr-0": { "Benchmark": "classes/" }
+    },
+    "require": {
+        "showclix/fuelphp-util": "*"
+    }
+}
