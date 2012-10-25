@@ -20,7 +20,7 @@ class Unit {
                     'real'     => microtime(true)
                 );
         } else {
-            $start = array('real' => microtime(true));
+            $this->start = array('real' => microtime(true));
         }
     }
 
@@ -28,15 +28,17 @@ class Unit {
         $stop = array('real' => microtime(true));
         if($this->rusage) {
             $rusage = getrusage();
-            $this->stop['utime_s']  = $rusage['ru_utime.tv_sec'];
-            $this->stop['utime_us'] = $rusage['ru_utime.tv_usec'];
-            $this->stop['stime_s']  = $rusage['ru_stime.tv_sec'];
-            $this->stop['stime_us'] = $rusage['ru_stime.tv_usec'];
+            $stop['utime_s']  = $rusage['ru_utime.tv_sec'];
+            $stop['utime_us'] = $rusage['ru_utime.tv_usec'];
+            $stop['stime_s']  = $rusage['ru_stime.tv_sec'];
+            $stop['stime_us'] = $rusage['ru_stime.tv_usec'];
         }
+        if(!is_null($this->stop) || !is_null($this->times)) return;
+        $this->stop = $stop;
     }
 
     public function time() {
-        if(is_null($this->stop)) throw new Exception("Tried to calculate times without stopping the unit");
+        if(is_null($this->stop) && !is_null($this->times)) throw new Exception("Tried to calculate times without stopping the unit");
         if(is_null($this->times)) {
             $this->times = array('real' => ($this->stop['real'] - $this->start['real']));
             if($this->rusage) {
@@ -45,6 +47,8 @@ class Unit {
                 $this->times['system'] = ($this->stop['stime_s'] + ($this->stop['stime_us']/1e6)) -
                                          ($this->start['stime_s'] + ($this->start['stime_us']/1e6));
             }
+            $this->start = null;
+            $this->stop  = null;
         }
         return $this->times;
     }
