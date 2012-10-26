@@ -6,9 +6,13 @@ class Unit {
     private $end     = null;
     private $times   = null;
     private $rusage  = false;
-    private $benchmarks = null;
 
-    public function __construct($rusage = false) {
+
+    private $ucs = null;
+    public $parent = null;
+
+    public function __construct($parent, $rusage = false) {
+        $this->parent = $parent;
         if($this->rusage = $rusage) {
             $rusage = getrusage();
             $this->start =
@@ -51,5 +55,9 @@ class Unit {
             $this->stop  = null;
         }
         return $this->times;
+    }
+
+    public function isDone() {
+        return is_null($this->times) || is_null($this->stop);
     }
 }
